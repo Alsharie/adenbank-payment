@@ -77,7 +77,7 @@ class Guzzle
                 )->then(function ($response) {
                     return $response;
                 }, function ($exception) {
-                    return $exception->getResponse();
+                    return $exception;
                 })->wait();
 
 
