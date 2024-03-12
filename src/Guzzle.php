@@ -77,9 +77,9 @@ class Guzzle
                     ]
                 )->then(function ($response) {
                     return $response;
-                }, function ($exception) {
-                    return $exception;
                 })->wait();
+
+
 
 
                 if ($_response->getStatusCode() == 200) {
