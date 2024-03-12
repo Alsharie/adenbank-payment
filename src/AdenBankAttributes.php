@@ -207,7 +207,7 @@ class AdenBankAttributes extends Guzzle
 
     protected function generateMerchantToken()
     {
-        $this->attributes['MrchntToken'] = md5($this->attributes['msgID'] . $this->attributes['username'] . config('adenBank.auth.password') . $this->attributes['refNo']);
+        $this->attributes['MrchntToken'] = md5($this->attributes['msgID'] . config('adenBank.auth.username') . config('adenBank.auth.password') . $this->attributes['refNo']);
 
     }
 
