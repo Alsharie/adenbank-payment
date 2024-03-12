@@ -4,6 +4,7 @@ namespace Alsharie\AdenBankPayment;
 
 use Alsharie\AdenBankPayment\Helpers\AdenBankAuthHelper;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ConnectException;
 use Psr\Http\Message\ResponseInterface;
 
 class Guzzle
@@ -93,6 +94,12 @@ class Guzzle
                 }
 
                 $retries++;
+            } catch (ConnectException $e) {
+                // Log the exception message
+                error_log($e->getMessage());
+
+                // Throw the exception again
+                throw $e;
             } catch (\Exception $e) {
                 $retries++;
             }
