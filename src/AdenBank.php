@@ -27,7 +27,7 @@ class AdenBank extends AdenBankAttributes
             'attributes' => $this->attributes,
         ];
 
-//        try {
+        try {
             $response = $this->sendRequest(
                 $this->getLoginPath(),
                 $this->attributes,
@@ -39,11 +39,11 @@ class AdenBank extends AdenBankAttributes
             $response = new AdenBankLoginResponse((string)$response->getBody(), $request);
             AdenBankAuthHelper::setAuthToken($response->getToken());
             return $response;
-//        } catch (\GuzzleHttp\Exception\RequestException $e) {
-//            return new AdenBankErrorResponse($e->getResponse()->getBody(), $e->getResponse()->getStatusCode(), $request);
-//        } catch (\Exception $e) {
-//            return new AdenBankErrorResponse($e->getTraceAsString(), $e->getCode(), $request);
-//        }
+        } catch (\GuzzleHttp\Exception\RequestException $e) {
+            return new AdenBankErrorResponse($e->getResponse()->getBody(), $e->getResponse()->getStatusCode(), $request);
+        } catch (\Exception $e) {
+            return new AdenBankErrorResponse($e->getTraceAsString(), $e->getCode(), $request);
+        }
     }
 
     /**
@@ -63,7 +63,7 @@ class AdenBank extends AdenBankAttributes
             $this->attributes['currency'] = 'YER';//rial Yemeni
         }
 
-//        try {
+        try {
             $response = $this->sendRequest(
                 $this->getPaymentRequestPath(),
                 $this->attributes,
@@ -72,11 +72,11 @@ class AdenBank extends AdenBankAttributes
             );
 
             return new AdenBankInitPaymentResponse((string)$response->getBody(), $request);
-//        } catch (\GuzzleHttp\Exception\RequestException $e) {
-//            return new AdenBankErrorResponse($e->getResponse()->getBody(), $e->getResponse()->getStatusCode(), $request);
-//        } catch (\Exception $e) {
-//            return new AdenBankErrorResponse($e->getTraceAsString(), $e->getCode(), $request);
-//        }
+        } catch (\GuzzleHttp\Exception\RequestException $e) {
+            return new AdenBankErrorResponse($e->getResponse()->getBody(), $e->getResponse()->getStatusCode(), $request);
+        } catch (\Exception $e) {
+            return new AdenBankErrorResponse($e->getTraceAsString(), $e->getCode(), $request);
+        }
     }
 
 

@@ -59,6 +59,10 @@ class Guzzle
         $success = false;
         $_response = null;
         do {
+            if (AdenBankAuthHelper::getAuthToken() == null && $path != $this->getLoginPath()) {
+                $aden = new AdenBank();
+                $aden->login();
+            }
             $headers['Authorization'] = 'Bearer ' . AdenBankAuthHelper::getAuthToken();
             try {
                 $_response = $this->guzzleClient->requestAsync(
@@ -80,8 +84,6 @@ class Guzzle
                 })->wait();
 
 
-
-
                 if ($_response->getStatusCode() == 200) {
                     return $_response;
                 } else if (strpos(strtolower($_response->getBody()->getContents()), 'anonymous') !== false) {
@@ -100,11 +102,26 @@ class Guzzle
 
                 // Throw the exception again
                 throw $e;
+            } catch (\GuzzleHttp\Exception\ClientException $e) {
+                // Handle client exceptions here
+                error_log($e->getMessage());
+                // You can decide to retry the request, throw the exception again, or handle it in another way
+                // Throw the exception again
+                throw $e;
+            } catch (\GuzzleHttp\Exception\RequestException $e) {
+                // Handle request exceptions here
+                error_log($e->getMessage());
+                // You can decide to retry the request, throw the exception again, or handle it in another way
+                // Throw the exception again
+                throw $e;
             } catch (\Exception $e) {
                 $retries++;
             }
         } while ($retries <= 2);
 
+        if ($_response === null || $_response->getStatusCode() != 200) {
+            throw new \Exception('Failed to get successful response after 2 retries');
+        }
         return $_response;
     }
 
