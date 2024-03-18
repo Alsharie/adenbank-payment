@@ -63,6 +63,11 @@ class AdenBank extends AdenBankAttributes
             $this->attributes['currency'] = 'YER';//rial Yemeni
         }
 
+        if (!isset($this->attributes['notes'])) {
+            $this->attributes['notes'] = '';
+        }
+
+
         try {
             $response = $this->sendRequest(
                 $this->getPaymentRequestPath(),

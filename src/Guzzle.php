@@ -139,12 +139,12 @@ class Guzzle
 
     protected function getApprovePaymentPath(): string
     {
-        return $this->basePath . '/' . "Payments/v1/ApproveTras";
+        return $this->basePath . '/' . "Payment/ApproveTras";
     }
 
     protected function getCheckTransactionPath(): string
     {
-        return $this->basePath . '/' . "Payments/v1/checkOperation";
+        return $this->basePath . '/' . "Payment/checkOperation";
     }
 
 
