@@ -47,7 +47,7 @@ class AdenBankResponse
     public function isSuccess()
     {
         if(isset($this->data['Status'])){
-            return $this->data['Status'];
+            return $this->data['Status']>0;
         }
         return false;
 
