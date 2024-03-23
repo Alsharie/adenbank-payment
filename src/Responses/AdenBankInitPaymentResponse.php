@@ -13,8 +13,8 @@ class AdenBankInitPaymentResponse extends AdenBankResponse
      */
     public function getMsg()
     {
-        if (!empty($this->data['Msg'])) {
-            return $this->data['Msg'];
+        if (!empty($this->data['msg'])) {
+            return $this->data['msg'];
         }
 
         return false;
